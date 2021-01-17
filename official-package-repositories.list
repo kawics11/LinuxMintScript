@@ -1,0 +1,8 @@
+deb https://quantum-mirror.hu/mirrors/linuxmint/packages CODENAME main upstream import backport 
+
+deb http://ftp.fsn.hu/ubuntu focal main restricted universe multiverse
+deb http://ftp.fsn.hu/ubuntu focal-updates main restricted universe multiverse
+deb http://ftp.fsn.hu/ubuntu focal-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://archive.canonical.com/ubuntu/ focal partner
