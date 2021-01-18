@@ -11,11 +11,11 @@ TIME_FORMAT="%H:%M:%S"
 THEME="Mint-Y-Dark"
 
 #Check if files are accessable
-if [ -f "official-package-repositories.list" ]
+if [ -f "files/official-package-repositories.list" ]
 then
 	true
 else
-	printf "Make sure that all required files are present in the same directory as the script.\nDo not launch the script from another directory."
+	printf "Make sure that all required files are present in the same directory as the script.\nDo not launch the script from another directory.\n"
 	exit 1
 fi
 
@@ -43,14 +43,19 @@ sudo update-initramfs -u
 #Set hungarian repos
 CODENAME=$(grep CODENAME /etc/linuxmint/info | sed 's/CODENAME=//')
 sudo cp -f official-package-repositories.list /etc/apt/sources.list.d/
-sudo cp -f slick-greeter.conf /etc/lightdm/	#Login screen theme
-sudo cp -f timeshift.json /etc/			#Timeshift config
-curl -o ~/.config/gtk-3.0/settings.ini https://raw.githubusercontent.com/kawics11/dotfiles/main/.config/gtk-3.0/settings.ini	#GTK 3 config
 sudo sed -i 's/CODENAME/'"$CODENAME"'/' /etc/apt/sources.list.d/official-package-repositories.list
+
+#Config files
+sudo cp -f slick-greeter.conf /etc/lightdm/
+sudo cp -f timeshift.json /etc/
+curl -o ~/.config/gtk-3.0/settings.ini https://raw.githubusercontent.com/kawics11/dotfiles/main/.config/gtk-3.0/settings.ini
+curl -o ~/.bashrc https://raw.githubusercontent.com/kawics11/dotfiles/main/.bashrc
+curl -o ~/.bash_aliases https://raw.githubusercontent.com/kawics11/dotfiles/main/.bash_aliases
+
 sudo apt remove hexchat hexchat-common onboard onboard-common
-sudo apt update -qq -y
-sudo apt upgrade -qq -y
-sudo apt install -qq -y \
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install -y \
 	numlockx \
 	deborphan \
 	fzf \
@@ -179,6 +184,6 @@ gsettings set org.gnome.calculator			show-thousands			true	#Show thousands separ
 
 
 
-sudo apt autoremove -qq -y
+sudo apt autoremove -y
 dpkg -l | grep ^rc | awk '{print $2}' | xargs sudo apt purge -qq -y
 
